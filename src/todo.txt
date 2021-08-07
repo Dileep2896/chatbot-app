@@ -1,0 +1,9 @@
+1. Setup redux - manage our application state - Done
+2. Setup chat (front-end) - Done
+3. Setup reducers and action - Done
+4. Chat queue - Done
+5. Display the messages to the user - Done
+6. Get and handle session_ids - Done
+7. Handle sending our users message to the application
+8. Adding bot responses to the queue
+9. Formatting

@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+// Importing dependencies
+import React, { useEffect } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Import redux components
+import { Provider } from "react-redux";
+import store from "./store";
+
+// Import chat components
+import Chat from "./components/chat/Chat";
+
+// Import action
+import { createSession } from "./actions/watson";
+
+// Import axios
+import axios from "axios";
+
+if (localStorage.session) {
+  delete axios.defaults.headers.common["session_id"];
+  axios.defaults.headers.common["session_id"] = localStorage.session;
+} else {
+  delete axios.defaults.headers.common["session_id"];
 }
+
+// Connect application to redux
+const App = () => {
+  useEffect(() => {
+    // Check if there is session
+    if (!localStorage.session) {
+      // Create
+      store.dispatch(createSession());
+    }
+  });
+  return (
+    <Provider store={store}>
+      <div className="container">
+        {/* Insert Chat Component HERE! */}
+        <Chat />
+      </div>
+    </Provider>
+  );
+};
 
 export default App;
